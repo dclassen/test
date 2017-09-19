@@ -21,9 +21,12 @@ volumes:[
     def pwd = pwd()
     def chart_dir = "${pwd}/charts/croc-hunter"
 
+    println "Checking out repo"
     checkout scm
+    println "Checked out repo"
 
     // read in required jenkins workflow config values
+    println "reading pipeline config"
     def inputFile = readFile('Jenkinsfile.json')
     def config = new groovy.json.JsonSlurperClassic().parseText(inputFile)
     println "pipeline config ==> ${config}"
@@ -35,6 +38,7 @@ volumes:[
     }
 
     // set additional git envvars for image tagging
+    println "pipeline ggtenvvars"
     pipeline.gitEnvVars()
 
     // If pipeline debugging enabled
